@@ -1,0 +1,14 @@
+
+<header class="ui padded container">
+  <h1 class="logo">
+    Gold<span>Rush</span>
+  </h1>
+
+  <div class="ui buttons game-toggle" (click)="toggleGameList($event)">
+    <button class="ui deal button active" data-dest="games">Gold Games</button>
+      <div class="or"></div>
+    <button class="ui deal button" data-dest="deals">Gold Deals</button>
+  </div>
+</header>
+
+<router-outlet></router-outlet>

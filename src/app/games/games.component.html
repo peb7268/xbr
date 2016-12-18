@@ -1,0 +1,19 @@
+
+<div id="gr" class="ui raised padded container segment">
+  <div class="ui divided list">
+    <div class="item game" *ngFor="let game of game_info?.GamesWithGold">
+      <div class="right floated content">
+        <div class="ui button">Watch</div>
+      </div>
+      <img class="ui image poster" src="{{game.TitleImage}}" alt="{{game.TitleName}}">
+
+      <div class="content price-content">
+        <h2>{{ game.TitleName }}</h2>
+        <div class="description">
+          <p class="price usual">Usual Price: {{ game.ListPriceText }}</p>
+          <p class="price gold">Gold Price: {{ game.DiscountedPriceText }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

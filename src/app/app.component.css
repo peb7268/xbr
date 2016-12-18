@@ -1,0 +1,123 @@
+
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/*-- Fonts 
+font-family: 'Bree Serif', serif;
+font-family: 'Open Sans', sans-serif;
+--*/
+@import url('https://fonts.googleapis.com/css?family=Bree+Serif|Open+Sans');
+
+/* --Globals --*/
+body {
+    background: #121212;
+    font-family: 'Open Sans', sans-serif;
+}
+
+header {
+    overflow: hidden;
+    margin: 50px 0 0;
+}
+
+h1.logo {
+    font-family: 'Bree Serif', serif;
+    font-size: 28pt;
+    color: #fff;
+    float: left;
+}
+
+h1.logo span {
+    color: goldenrod;
+}
+
+header .ui.buttons.game-toggle {
+    float: right;
+}
+
+header .ui.deal.button.active {
+    background: goldenrod;
+    color: #fff;
+}
+
+#gr.container {
+    margin: 50px auto;
+}
+
+.ui.list .item.game {
+    padding: 15px 0;
+}
+
+.ui.list .item.game .price-content {
+    position: relative;
+    min-height: 75px;
+    width: 80%;
+    max-width: 875px;
+}
+
+.ui.list .item.game .content .description {
+    position: absolute;
+    bottom: 0;
+}
+
+.ui.list .item.game .poster {
+    max-width: 50px;
+}
+
+.ui.list .item.game h2 { 
+    font-size: 12pt; 
+    font-weight: bold; 
+    color: #333;
+    margin: 0 0 2px; 
+}
+.ui.list .item.game .price { 
+    font-size: 10pt;
+    margin: 0; 
+}
+.ui.list .item.game .price.usual { color: #777; }
+.ui.list .item.game .price.gold { color: #333; }
