@@ -2,7 +2,7 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { GameService } from '../game.service';
+import { GameService } from './game.service';
 
 @Component({
   selector: 'app-games',

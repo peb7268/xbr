@@ -4,7 +4,7 @@
     Gold<span>Rush</span>
   </h1>
 
-  <div class="ui buttons game-toggle" (click)="toggleGameList($event)">
+  <div class="ui buttons game-toggle" (click)="toggleGameList($event)" *ngIf="loggedIn">
     <button class="ui deal button active" data-dest="games">Gold Games</button>
       <div class="or"></div>
     <button class="ui deal button" data-dest="deals">Gold Deals</button>

@@ -5,9 +5,11 @@ import { RouterModule,
 
 import { GamesComponent }           from './games/games.component';
 import { DealsComponent }           from './deals/deals.component';
+import { LoginComponent }           from './login/login.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'games', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
   { path: 'games', component: GamesComponent },
   { path: 'deals', component: DealsComponent },
 ];

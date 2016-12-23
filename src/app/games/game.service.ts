@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers }                   from '@angular/http';
 import { Router }                          from '@angular/router';
 
-import { API_KEY, PROFILE_USER_ID, MOCK } from './config/api';
+import { API_KEY, PROFILE_USER_ID, MOCK } from './../config/api';
 
 let headers;
 
@@ -15,11 +15,9 @@ export class GameService {
   constructor(public http: Http, public route: Router){}
 
   init(){
-    console.log('GS');
-
     if(this.cache === true)  {
       this.game_info = MOCK;
-      console.log('setting cached game info to: ', MOCK);
+      //console.log('setting cached game info to: ', MOCK);
     } else {
       headers = new Headers();
       if(this.cache === false) this.connect();

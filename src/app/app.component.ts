@@ -1,7 +1,7 @@
 
 import { Component, ViewEncapsulation, Output, EventEmitter }    from '@angular/core';
 
-import { GameService } from './game.service';
+import { GameService } from './games/game.service';
 
 @Component({
   selector: 'app-root',
