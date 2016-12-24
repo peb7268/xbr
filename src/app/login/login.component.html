@@ -1,6 +1,14 @@
 
 
 <div id="gr" class="ui raised padded container segment">
+  <div class="ui negative message" *ngIf="loginError">
+      <i class="close icon"></i>
+      <div class="header">
+        Oops looks like there was an error logging in.
+      </div>
+      <p>Please try again or contact support.</p>
+  </div>
+
   <form class="ui form" #loginForm="ngForm" (ngSubmit)="login(loginForm.value, loginForm.valid)" novalidate>
     <div class="field">
       <label>Username</label>
@@ -12,6 +20,6 @@
       <input type="password" [(ngModel)]="user.password" name="password" #password="ngModel" placeholder="Password" required>
     </div>
     
-    <button class="ui button positive" type="submit">Login</button>
+    <button class="ui button primary" type="submit">Login</button> <a  class="ui button gold" routerLink="/register">Register</a>
   </form>
 </div>

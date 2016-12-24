@@ -21,6 +21,7 @@ import { Http, RequestOptions } from '@angular/http';
 import { AuthConfig, provideAuth, AuthHttp, JwtHelper }   from 'angular2-jwt';
 import { AuthService, authHttpServiceFactory }   from './shared/services/auth.service';
 import { RegisterComponent } from './register/register.component';
+import { EventBusService }  from './shared/services/eventbus.service';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,9 @@ import { RegisterComponent } from './register/register.component';
     HttpModule
   ],
   providers: [
+    EventBusService,
+    AuthService,
+    GameService,
     {
       provide: AuthHttp,
       useFactory: authHttpServiceFactory,
@@ -47,8 +51,6 @@ import { RegisterComponent } from './register/register.component';
       useFactory: function(){ return new JwtHelper() },
       deps: []
     },
-    AuthService,
-    GameService,
     { provide : LocationStrategy , useClass : HashLocationStrategy },
   ],
   bootstrap: [AppComponent]

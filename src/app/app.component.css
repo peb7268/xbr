@@ -121,3 +121,26 @@ header .ui.deal.button.active {
 }
 .ui.list .item.game .price.usual { color: #777; }
 .ui.list .item.game .price.gold { color: #333; }
+
+.ui.sidebar.details.inverted.vertical.menu {
+    padding: 10px;
+}
+
+a.user.toggle {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    font-size: 15pt;
+    background: #eee;
+    text-align: center;
+    display: block;
+    border-radius: 20px;
+    width: 25px;
+    padding: 0;
+    border: 1px solid #fff;
+}
+
+a.user.toggle i {
+    display: inline-block;
+    color: #222;
+}

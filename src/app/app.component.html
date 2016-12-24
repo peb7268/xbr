@@ -1,5 +1,8 @@
 
 <header class="ui padded container">
+  <a class="user toggle" (click)="toggleSidebar($event)">
+    <i class="user icon"></i>
+  </a>
   <h1 class="logo">
     Gold<span>Rush</span>
   </h1>
@@ -11,4 +14,30 @@
   </div>
 </header>
 
-<router-outlet></router-outlet>
+<div class="ui sidebar details inverted vertical menu">
+  <form class="ui form" #detailsForm="ngForm" (ngSubmit)="update(detailsForm.value, detailsForm.valid)" novalidate>
+    <div class="field">
+      <label>Username</label>
+      <input type="text" [(ngModel)]="user.username" #username="ngModel" name="username" placeholder="Username" required>
+    </div>
+
+    <div class="field">
+      <label>Password</label>
+      <input type="password" [(ngModel)]="user.password" name="password" #password="ngModel" placeholder="Password" required>
+    </div>
+
+    <div class="field">
+      <label>Phone</label>
+      <input type="text" [(ngModel)]="user.phone" name="phone" #phone="ngModel" placeholder="Phone #" required>
+    </div>
+    
+    <button class="ui button primary fluid" type="submit">Update</button>
+    <br>
+    <a class="ui button positive fluid" (click)="testNotification(user)">Test Notification</a>
+  </form>
+</div>
+
+<div class="pusher">
+  <!-- Site content !-->
+  <router-outlet></router-outlet>
+</div>

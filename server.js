@@ -95,9 +95,6 @@ app.use(function(req, res, next) {
 //SPA Root
 app.get('/', function (req, res) { res.sendFile(path.join(__dirname,'/dist/index.html')); });
 
-//API Root
-app.get('/api', function (req, res) { res.send('API Root'); });
-
 //Register Route
 app.post('/api/register', function(req, res){
     var user = {
@@ -127,14 +124,15 @@ app.post('/api/login', function (req, res) {
 
     User.findOne({ 'username': username }, function(err, user){
         if(err) throw err;
-        console.log('user found');
-        console.log('user.password: ', user.password);
-        console.log('pw: ', pw);
+        authedUser = {
+            username: username,
+            password: pw,
+            phone: user.phone
+        };
 
         if(user.password === pw){
-            console.log('user authenticated');
             var token = jwt.sign({ 
-                exp:  Math.floor(Date.now() / 1000) + (60 * 60),
+                exp:  Math.floor(Date.now() / 1000) + (60 * 60), //1 day
                 data: {
                 'authedUser' : authedUser 
                 }
@@ -142,16 +140,19 @@ app.post('/api/login', function (req, res) {
 
             res.send(token); 
         } else {
-            res.status = '500';
-            res.send('failure to authenticate');
+            res.send('login:error');
         }
     });
 });
 
 //Test msg route
-app.get('/api/msg', function(req, res, next){
+app.post('/api/msg', function(req, res, next){
+    var toNumber        = req.body.phone;
+    var formattedNumber = '+1' + toNumber; 
+    console.log('sending msg to: ' + formattedNumber);
+
     client.messages.create({
-        to: '+16786175386',
+        to: formattedNumber,
         from: '+16787804220',
         body: 'this is a test text from Paul',
     }, function (err, message) {
@@ -164,6 +165,10 @@ app.get('/api/msg', function(req, res, next){
         }
     });
 });
+
+//API Root
+app.get('/api', function (req, res) { res.send('API Root'); });
+
 
 //Set the ports
 if (app.get('env == "development"')){
