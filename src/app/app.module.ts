@@ -20,13 +20,15 @@ import { Http, RequestOptions } from '@angular/http';
 
 import { AuthConfig, provideAuth, AuthHttp, JwtHelper }   from 'angular2-jwt';
 import { AuthService, authHttpServiceFactory }   from './shared/services/auth.service';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GamesComponent,
     DealsComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     AppRoutingModule,

@@ -7,6 +7,35 @@ var logger                      = require('morgan');
 var cookieParser                = require('cookie-parser');
 var bodyParser                  = require('body-parser'); 
 
+
+//DB Setup
+var userSchema, User;
+var mongoose                    = require('mongoose');
+mongoose.connect('mongodb://localhost/xboxnotifier');
+
+var db                          = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+    console.log('Db connected: ');
+    userSchema                  = new mongoose.Schema({
+        username: { type: String, required: true },
+        password: { type: mongoose.Schema.Types.Mixed,  required: true },
+        phone:    { type: Number, required: true }
+    });
+
+    //Make the model
+    User    = mongoose.model('User', userSchema);
+});
+
+/**
+ * Twilio!! 
+ * Twilio Number: (678) 780-4220
+ */ 
+var accountSid = 'AC512a626bf5bde7872e7a1c6c96715d0a';
+var authToken = '99ef719761d2bf2e93ff11edc80ccbe6';
+var client = require('twilio')(accountSid, authToken);  //require the Twilio module and create a REST client
+
+
 //Auth Configs
 var jwt                         = require('jsonwebtoken');
 var passport                    = require('passport');
@@ -64,12 +93,29 @@ app.use(function(req, res, next) {
 });
 
 //SPA Root
-app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname,'/dist/index.html'));
-});
+app.get('/', function (req, res) { res.sendFile(path.join(__dirname,'/dist/index.html')); });
 
 //API Root
 app.get('/api', function (req, res) { res.send('API Root'); });
+
+//Register Route
+app.post('/api/register', function(req, res){
+    var user = {
+        username: req.body.username,
+        password: req.body.password,
+        phone: req.body.phone
+    }
+
+    User.create(user, function(err, phone){
+        if(err) {
+            console.log(err);
+            return;
+        }
+
+        res.send(phone); 
+
+    })
+});
 
 //Login Route
 app.post('/api/login', function (req, res) { 
@@ -79,29 +125,44 @@ app.post('/api/login', function (req, res) {
     var username = req.body.username;
     var pw       = req.body.password;
 
-    //Mock the auth
-    if(username == 'peb7268' && pw == 'tp') {
-        loggedIn = true;
-        authedUser = {
-            username: username,
-            password: pw
-        }
-    }
+    User.findOne({ 'username': username }, function(err, user){
+        if(err) throw err;
+        console.log('user found');
+        console.log('user.password: ', user.password);
+        console.log('pw: ', pw);
 
-    var token = jwt.sign({ 
-        exp:  Math.floor(Date.now() / 1000) + (60 * 60),
-        data: {
-         'authedUser' : authedUser 
-        }
-    }, 'mysecret');
+        if(user.password === pw){
+            console.log('user authenticated');
+            var token = jwt.sign({ 
+                exp:  Math.floor(Date.now() / 1000) + (60 * 60),
+                data: {
+                'authedUser' : authedUser 
+                }
+            }, 'mysecret');
 
-    //If found
-    if(loggedIn) {
-        res.statusCode = 200;
-        res.send(token); 
-    }
-    
-    res.send('Login failed');
+            res.send(token); 
+        } else {
+            res.status = '500';
+            res.send('failure to authenticate');
+        }
+    });
+});
+
+//Test msg route
+app.get('/api/msg', function(req, res, next){
+    client.messages.create({
+        to: '+16786175386',
+        from: '+16787804220',
+        body: 'this is a test text from Paul',
+    }, function (err, message) {
+        if(err) { 
+            console.error(err);
+            res.send('error');
+        } else {
+            console.log('success');
+            res.send('Message sent successfully. Message ID: ' + message.sid);
+        }
+    });
 });
 
 //Set the ports

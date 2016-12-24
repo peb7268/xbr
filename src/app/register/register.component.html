@@ -1,0 +1,23 @@
+
+
+<div id="gr" class="ui raised padded container segment">
+  <h2>Register</h2><br>
+  <form class="ui form" #registerForm="ngForm" (ngSubmit)="register(registerForm.value, registerForm.valid)" novalidate>
+    <div class="field">
+      <label>Username</label>
+      <input type="text" [(ngModel)]="user.username" #username="ngModel" name="username" placeholder="Username" required>
+    </div>
+
+    <div class="field">
+      <label>Password</label>
+      <input type="password" [(ngModel)]="user.password" name="password" #password="ngModel" placeholder="Password" required>
+    </div>
+
+    <div class="field">
+      <label>Phone</label>
+      <input type="text" [(ngModel)]="user.phone" name="phone" #phone="ngModel" placeholder="Phone #" required>
+    </div>
+    
+    <button class="ui button positive" type="submit">Register</button>
+  </form>
+</div>
