@@ -26,9 +26,9 @@ export class AppComponent {
     ){}
 
     ngOnInit(){
-      console.log('init app component');
       this.gs.init();
       this.eventbus.observe('user:data:update').subscribe(user_token => this.updateLoginStatus(user_token));
+      this.auth.refreshAuth();
     }
   
     updateLoginStatus(user_data){        

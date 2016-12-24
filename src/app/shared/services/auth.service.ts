@@ -37,8 +37,8 @@ export class AuthService {
    * Runs after a refresh to renew the auth details
    */
   refreshAuth(){
-    let tokenData = this.jwt.decodeToken(localStorage.getItem('jwt-token'));
-    console.log(tokenData);
+    let tokenData   = this.jwt.decodeToken(localStorage.getItem('jwt-token'));
+    this.eventbus.emit('user:data:update', tokenData);
   }
 
   /**
@@ -73,5 +73,9 @@ export class AuthService {
   recordToken(token){
     this.token = token;
     window.localStorage.setItem('jwt-token', JSON.stringify(token));
+  }
+
+  getAuthedUser(){
+    return this.authedUser;
   }
 }
